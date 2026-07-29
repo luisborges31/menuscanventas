@@ -822,20 +822,14 @@
             </div>
 
             <div class="max-w-2xl mx-auto">
-                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted){onFormSubmittedSuccess();}"></iframe>
-
                 <div class="bg-slate-900/90 p-5 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl">
                     <form 
                         id="contactForm" 
-                        action="https://script.google.com/macros/s/AKfycbwyxztA8T9WAIzPRJnsR_tV00kTJbDCA8Ai6Gz7Y3lUo0nnRIqIEJ2UC-hjtxgjY_x4/exec"
-                        method="POST"
-                        target="hidden_iframe"
-                        onsubmit="return handleFormSubmit(event)"
+                        onsubmit="handleFormSubmit(event)"
                         class="space-y-4"
                     >
                         <!-- Timestamp field -->
                         <input type="hidden" name="Fecha" id="inputFecha">
-                        <input type="hidden" name="fecha" id="inputFechaLower">
 
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-300 mb-1">Nombre Completo</label>
@@ -871,7 +865,7 @@
                     <!-- Form Confirmation Box -->
                     <div id="formSuccessMsg" class="hidden bg-emerald-950 border border-emerald-500 text-emerald-200 p-5 rounded-xl text-center text-xs sm:text-sm mt-4 font-bold space-y-2">
                         <div class="text-xl">✅</div>
-                        <p>¡Gracias! Tu solicitud fue registrada exitosamente en Google Sheets.</p>
+                        <p>¡Gracias! Tu solicitud fue registrada exitosamente.</p>
                         <p class="text-[11px] text-emerald-300 font-normal">Un asesor te contactará en breve para configurar tu cuenta gratis.</p>
                     </div>
 
@@ -897,9 +891,6 @@
     </footer>
 
     <script>
-        // Global state variable to handle hidden iframe load callback
-        window.submitted = false;
-
         // --- 1. COUNTDOWN TIMER LOGIC (48 HOURS) ---
         function initCountdown() {
             let endTime = localStorage.getItem('menuScanEndTime');
@@ -956,80 +947,66 @@
             }
         }
 
-        // --- 3. FORM HANDLING WITH GUARANTEED GOOGLE SHEETS SUBMISSION ---
-        function handleFormSubmit(event) {
+        // --- 3. FORM HANDLING WITH FETCH (NO-CORS) TO GOOGLE APPS SCRIPT ---
+        async function handleFormSubmit(event) {
+            // Evitar recarga de la página
+            event.preventDefault();
+
+            const form = document.getElementById('contactForm');
             const submitBtn = document.getElementById('submitBtn');
+            const successMsg = document.getElementById('formSuccessMsg');
             const errorMsg = document.getElementById('formErrorMsg');
 
             if (errorMsg) errorMsg.classList.add('hidden');
 
-            // Set current timestamp into hidden inputs
+            // Obtener fecha/hora actual
             const currentFormattedDate = new Date().toLocaleString("es-ES", { dateStyle: "short", timeStyle: "medium" });
-            document.getElementById('inputFecha').value = currentFormattedDate;
-            document.getElementById('inputFechaLower').value = currentFormattedDate;
 
-            // UI Loading state
+            // Construir objeto JSON con las claves de cada campo
+            const formDataJSON = {
+                Fecha: currentFormattedDate,
+                fecha: currentFormattedDate,
+                Nombre: document.getElementById('inputNombre').value,
+                Correo: document.getElementById('inputCorreo').value,
+                Teléfono: document.getElementById('inputTelefono').value,
+                Telefono: document.getElementById('inputTelefono').value,
+                'Nombre del Negocio': document.getElementById('inputNegocio').value,
+                Mensaje: document.getElementById('inputMensaje').value
+            };
+
+            // Estado visual de carga
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Guardando en Google Sheets...</span>';
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Enviando solicitud...</span>';
 
-            // Mark window submit state for iframe callback
-            window.submitted = true;
-
-            // ALSO send via secondary fetch to guarantee delivery if iframe is blocked
-            sendFetchBackup();
-
-            // Allow standard form submission to target hidden_iframe
-            return true;
-        }
-
-        function onFormSubmittedSuccess() {
-            if (!window.submitted) return;
-            const form = document.getElementById('contactForm');
-            const successMsg = document.getElementById('formSuccessMsg');
-            if (form) form.classList.add('hidden');
-            if (successMsg) successMsg.classList.remove('hidden');
-        }
-
-        // Fetch backup method to cover all environments
-        async function sendFetchBackup() {
             const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwyxztA8T9WAIzPRJnsR_tV00kTJbDCA8Ai6Gz7Y3lUo0nnRIqIEJ2UC-hjtxgjY_x4/exec";
 
-            const nombre = document.getElementById('inputNombre').value;
-            const correo = document.getElementById('inputCorreo').value;
-            const telefono = document.getElementById('inputTelefono').value;
-            const negocio = document.getElementById('inputNegocio').value;
-            const mensaje = document.getElementById('inputMensaje').value;
-            const fecha = document.getElementById('inputFecha').value;
-
-            const params = new URLSearchParams();
-            params.append('Fecha', fecha);
-            params.append('Nombre', nombre);
-            params.append('Correo', correo);
-            params.append('Teléfono', telefono);
-            params.append('Telefono', telefono);
-            params.append('Nombre del Negocio', negocio);
-            params.append('Mensaje', mensaje);
-
-            // Lowercase fallbacks
-            params.append('fecha', fecha);
-            params.append('nombre', nombre);
-            params.append('email', correo);
-            params.append('correo', correo);
-            params.append('telefono', telefono);
-            params.append('restaurante', negocio);
-            params.append('negocio', negocio);
-            params.append('mensaje', mensaje);
-
             try {
+                // Convertir datos a URLSearchParams para asegurar compatibilidad con Google Apps Script e.parameter
+                const params = new URLSearchParams();
+                for (const key in formDataJSON) {
+                    params.append(key, formDataJSON[key]);
+                }
+
+                // Petición fetch con modo no-cors
                 await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
                     body: params.toString()
                 });
-                onFormSubmittedSuccess();
+
+                // Limpiar formulario y mostrar mensaje de éxito
+                form.reset();
+                form.classList.add('hidden');
+                if (successMsg) successMsg.classList.remove('hidden');
+
             } catch (err) {
-                console.log('Fetch backup finished or handed off to iframe target.');
+                console.error('Error al enviar los datos:', err);
+                if (errorMsg) errorMsg.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Enviar Consulta y Activar Prueba Gratis 🚀</span>';
             }
         }
 
