@@ -1126,12 +1126,33 @@
             const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzYmR-cnS76zs8JNA7xY4NwQxi-eUQxdiGOPL8oiOgLSbTadmLS69yoxTUVL5rE7a3X/exec";
 
             const formData = new URLSearchParams();
-            formData.append('nombre', form.querySelector('[name="nombre"]').value);
-            formData.append('email', form.querySelector('[name="email"]').value);
-            formData.append('telefono', form.querySelector('[name="telefono"]').value);
-            formData.append('restaurante', form.querySelector('[name="restaurante"]').value);
-            formData.append('mensaje', form.querySelector('[name="mensaje"]').value);
-            formData.append('fecha', new Date().toLocaleString("es-ES"));
+            
+            const fechaVal = new Date().toLocaleString("es-ES", { dateStyle: "short", timeStyle: "medium" });
+            const nombreVal = form.querySelector('[name="nombre"]').value;
+            const correoVal = form.querySelector('[name="email"]').value;
+            const telefonoVal = form.querySelector('[name="telefono"]').value;
+            const negocioVal = form.querySelector('[name="restaurante"]').value;
+            const mensajeVal = form.querySelector('[name="mensaje"]').value;
+
+            // Nombres de parámetros coincidentes con las columnas de tu Hoja de Cálculo:
+            // [Fecha, Nombre, Correo, Teléfono, Nombre del Negocio, Mensaje]
+            formData.append('Fecha', fechaVal);
+            formData.append('Nombre', nombreVal);
+            formData.append('Correo', correoVal);
+            formData.append('Teléfono', telefonoVal);
+            formData.append('Telefono', telefonoVal);
+            formData.append('Nombre del Negocio', negocioVal);
+            formData.append('Mensaje', mensajeVal);
+
+            // Alias en minúsculas por compatibilidad con scripts existentes
+            formData.append('fecha', fechaVal);
+            formData.append('nombre', nombreVal);
+            formData.append('email', correoVal);
+            formData.append('correo', correoVal);
+            formData.append('telefono', telefonoVal);
+            formData.append('restaurante', negocioVal);
+            formData.append('negocio', negocioVal);
+            formData.append('mensaje', mensajeVal);
 
             try {
                 await fetch(GOOGLE_SCRIPT_URL, {
