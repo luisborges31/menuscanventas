@@ -58,6 +58,56 @@
             border: 1px solid rgba(0, 0, 0, 0.08);
         }
 
+        /* Dynamic Green - Blue - Red RGB Gradient Button Animation */
+        @keyframes dynamicRGBShift {
+            0% {
+                background-position: 0% 50%;
+                box-shadow: 0 8px 25px -5px rgba(16, 185, 129, 0.5);
+            }
+            33% {
+                background-position: 50% 50%;
+                box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.5);
+            }
+            66% {
+                background-position: 100% 50%;
+                box-shadow: 0 8px 25px -5px rgba(239, 68, 68, 0.5);
+            }
+            100% {
+                background-position: 0% 50%;
+                box-shadow: 0 8px 25px -5px rgba(16, 185, 129, 0.5);
+            }
+        }
+
+        .btn-dynamic-rgb {
+            background: linear-gradient(120deg, #10b981, #3b82f6, #ef4444, #10b981);
+            background-size: 300% 300%;
+            animation: dynamicRGBShift 6s ease infinite;
+            color: #ffffff !important;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: transform 0.25s ease, filter 0.25s ease;
+        }
+
+        .btn-dynamic-rgb:hover {
+            transform: translateY(-2px) scale(1.02);
+            filter: brightness(1.1);
+        }
+
+        /* Subtle floating ambient card hover effect */
+        .card-hover-effect {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -10px rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        /* Subtle glowing borders */
+        .glow-border-emerald {
+            box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.25);
+        }
+
         /* Aspect Ratio for YouTube Shorts 9:16 */
         .aspect-shorts {
             aspect-ratio: 9 / 16;
@@ -165,13 +215,9 @@
 
                     <!-- CTA Buttons -->
                     <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start space-y-3 sm:space-y-0 sm:space-x-4 pt-2">
-                        <a href="#contacto" class="w-full sm:w-auto bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm sm:text-base px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl shadow-lg shadow-emerald-500/25 transition transform active:scale-95 text-center flex items-center justify-center space-x-2">
+                        <a href="#contacto" class="w-full sm:w-auto btn-dynamic-rgb font-black text-sm sm:text-base px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl shadow-lg transition transform active:scale-95 text-center flex items-center justify-center space-x-2">
                             <span>🚀 Activar Mi Prueba Gratis Ahora</span>
                             <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                        <a href="#demostración" class="w-full sm:w-auto bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold text-xs sm:text-sm px-5 sm:px-6 py-3.5 sm:py-4 rounded-xl transition text-center flex items-center justify-center space-x-2 active:scale-95">
-                            <i class="fa-solid fa-circle-play text-emerald-400"></i>
-                            <span>Probar Demo interactiva</span>
                         </a>
                     </div>
                 </div>
@@ -212,166 +258,54 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </header>
-
-    <section id="demostración" class="py-12 sm:py-16 bg-slate-900 text-slate-100 border-b border-slate-800 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-                <span class="text-emerald-400 font-extrabold text-xs uppercase tracking-widest block mb-2">Pruébalo Tú Mismo en Vivo</span>
-                <h2 class="text-2xl sm:text-4xl font-black text-white">Prueba la Experiencia del Cliente y de la Cocina</h2>
-                <p class="text-slate-400 text-xs sm:text-base mt-2">
-                    Simula la realización de un pedido como si fueras un cliente escaneando el código QR.
-                </p>
-            </div>
-
-            <!-- Simulator Component -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch max-w-4xl mx-auto">
-                <!-- Client Side Smartphone -->
-                <div class="bg-slate-950 p-4 sm:p-6 rounded-3xl border border-slate-800 flex flex-col justify-between shadow-2xl">
-                    <div>
-                        <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-800 mb-4">
-                            <div class="flex items-center space-x-2">
-                                <i class="fa-solid fa-mobile-screen text-emerald-400 text-lg sm:text-xl"></i>
-                                <span class="font-extrabold text-xs sm:text-sm text-slate-200">Menú del Cliente (Mesa 4)</span>
-                            </div>
-                            <span class="text-[9px] sm:text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold uppercase">QR Escaneado</span>
-                        </div>
-
-                        <p class="text-[11px] sm:text-xs text-slate-400 mb-3">Toca un producto para agregarlo al pedido de prueba:</p>
-
-                        <div class="space-y-2.5 sm:space-y-3">
-                            <div onclick="addSimItem('Pizza Familiar Pepperoni', 14.50)" class="p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 cursor-pointer transition active:scale-[0.98] flex items-center justify-between group">
-                                <div class="flex items-center space-x-2.5 sm:space-x-3">
-                                    <span class="text-xl sm:text-2xl">🍕</span>
-                                    <div>
-                                        <h4 class="font-bold text-xs sm:text-sm text-slate-200 group-hover:text-emerald-400">Pizza Pepperoni Special</h4>
-                                        <span class="text-[10px] sm:text-xs text-slate-400 block sm:inline">Extra queso y orégano</span>
-                                    </div>
-                                </div>
-                                <span class="font-black text-emerald-400 text-xs sm:text-sm whitespace-nowrap ml-2">€14.50</span>
-                            </div>
-
-                            <div onclick="addSimItem('Hamburguesa Doble Smash', 9.80)" class="p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 cursor-pointer transition active:scale-[0.98] flex items-center justify-between group">
-                                <div class="flex items-center space-x-2.5 sm:space-x-3">
-                                    <span class="text-xl sm:text-2xl">🍔</span>
-                                    <div>
-                                        <h4 class="font-bold text-xs sm:text-sm text-slate-200 group-hover:text-emerald-400">Smash Burger Bacon</h4>
-                                        <span class="text-[10px] sm:text-xs text-slate-400 block sm:inline">Doble carne + cheddar</span>
-                                    </div>
-                                </div>
-                                <span class="font-black text-emerald-400 text-xs sm:text-sm whitespace-nowrap ml-2">€9.80</span>
-                            </div>
-
-                            <div onclick="addSimItem('Bebida Refresco de Cola 500ml', 2.50)" class="p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 cursor-pointer transition active:scale-[0.98] flex items-center justify-between group">
-                                <div class="flex items-center space-x-2.5 sm:space-x-3">
-                                    <span class="text-xl sm:text-2xl">🥤</span>
-                                    <div>
-                                        <h4 class="font-bold text-xs sm:text-sm text-slate-200 group-hover:text-emerald-400">Refresco de Cola Frío</h4>
-                                        <span class="text-[10px] sm:text-xs text-slate-400 block sm:inline">Lata 500ml servida con hielo</span>
-                                    </div>
-                                </div>
-                                <span class="font-black text-emerald-400 text-xs sm:text-sm whitespace-nowrap ml-2">€2.50</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Selected Items Summary -->
-                    <div class="mt-5 pt-3 sm:pt-4 border-t border-slate-800">
-                        <div class="flex justify-between text-xs font-bold text-slate-300 mb-2">
-                            <span>Resumen Pedido:</span>
-                            <span id="simTotal" class="text-emerald-400 font-mono">€0.00</span>
-                        </div>
-                        <div id="simList" class="text-[11px] text-slate-400 mb-3 min-h-[28px]">
-                            Ningún producto seleccionado. Haz clic arriba para seleccionar.
-                        </div>
-                        <button onclick="sendSimOrder()" id="btnSendSim" class="w-full bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-black py-3 rounded-xl text-xs uppercase tracking-wider transition disabled:opacity-50 disabled:cursor-not-allowed">
-                            Enviar Pedido al Restaurante
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Admin / Kitchen Screen -->
-                <div class="bg-slate-950 p-4 sm:p-6 rounded-3xl border border-slate-800 flex flex-col justify-between shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-amber-500 text-slate-950 text-[9px] sm:text-[10px] font-black px-2.5 py-1 rounded-bl-xl uppercase">
-                        Panel de Control
-                    </div>
-
-                    <div>
-                        <div class="flex items-center space-x-2 pb-3 sm:pb-4 border-b border-slate-800 mb-4">
-                            <i class="fa-solid fa-bell text-amber-400 text-lg sm:text-xl animate-bounce"></i>
-                            <span class="font-extrabold text-xs sm:text-sm text-slate-200">Recepción de Comandas en Vivo</span>
-                        </div>
-
-                        <!-- Imagen FotoPedido -->
-                        <div class="mb-4 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 p-1">
-                            <img src="https://placehold.co/600x320/0b1120/10b981?text=Foto+Pedido+-+Comanda+en+Vivo" alt="Foto Pedido Comanda" class="w-full h-auto rounded-xl object-cover shadow-inner" onerror="this.src='https://placehold.co/600x320/1e293b/ffffff?text=Foto+Pedido'">
-                        </div>
-
-                        <div id="simKitchenBox" class="bg-slate-900 border border-slate-800 p-4 rounded-2xl min-h-[160px] flex flex-col items-center justify-center text-center">
-                            <i class="fa-solid fa-utensils text-slate-700 text-2xl sm:text-3xl mb-2"></i>
-                            <p class="text-xs text-slate-500">Esperando nuevo pedido desde el celular...</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 pt-3 border-t border-slate-800 text-center">
-                        <span class="text-[10px] text-slate-400 flex items-center justify-center space-x-1">
-                            <i class="fa-solid fa-shield-halved text-emerald-400"></i>
-                            <span>Sincronización Realtime instantánea</span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-14 sm:py-20 bg-slate-100 text-slate-900">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- SECTION 1: EL PROBLEMA (Panel Alt Tone: Deep Obsidian Slate) -->
+    <section class="py-14 sm:py-20 bg-slate-900 text-slate-100 border-b border-slate-800/80 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/80 pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-                <span class="bg-red-100 text-red-600 font-extrabold text-[10px] sm:text-xs uppercase px-3 py-1 rounded-full tracking-wider inline-block">
+                <span class="bg-red-500/10 text-red-400 border border-red-500/20 font-extrabold text-[10px] sm:text-xs uppercase px-3 py-1 rounded-full tracking-wider inline-block">
                     El Problema Real de los Restaurantes
                 </span>
-                <h2 class="text-2xl sm:text-4xl font-black text-slate-900 mt-4 leading-tight">
+                <h2 class="text-2xl sm:text-4xl font-black text-white mt-4 leading-tight">
                     Mientras otros restaurantes siguen perdiendo pedidos por WhatsApp... tú puedes automatizar todo.
                 </h2>
             </div>
 
             <!-- Pain Points Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6 mb-12 sm:mb-16">
-                <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 rounded-2xl flex items-center justify-center text-red-600 font-bold text-lg sm:text-xl mb-4">
+                <div class="bg-slate-950/80 p-5 sm:p-6 rounded-3xl border border-slate-800 shadow-lg card-hover-effect">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-500/10 border border-red-500/20 rounded-2xl flex items-center justify-center text-red-400 font-bold text-lg sm:text-xl mb-4">
                         <i class="fa-solid fa-clock font-black"></i>
                     </div>
-                    <h3 class="font-extrabold text-slate-900 text-sm sm:text-base mb-2">Cada minuto de espera...</h3>
-                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    <h3 class="font-extrabold text-white text-sm sm:text-base mb-2">Cada minuto de espera...</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
                         Es un pedido menos. Si tu cliente tarda 10 minutos en ver el menú en PDF y recibir respuesta por WhatsApp, buscará otra opción en segundos.
                     </p>
                 </div>
 
-                <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 rounded-2xl flex items-center justify-center text-red-600 font-bold text-lg sm:text-xl mb-4">
+                <div class="bg-slate-950/80 p-5 sm:p-6 rounded-3xl border border-slate-800 shadow-lg card-hover-effect">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-500/10 border border-red-500/20 rounded-2xl flex items-center justify-center text-red-400 font-bold text-lg sm:text-xl mb-4">
                         <i class="fa-solid fa-phone-slash"></i>
                     </div>
-                    <h3 class="font-extrabold text-slate-900 text-sm sm:text-base mb-2">Cada llamada perdida...</h3>
-                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    <h3 class="font-extrabold text-white text-sm sm:text-base mb-2">Cada llamada perdida...</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
                         Es dinero directo que terminó en la competencia. Mientras la cocina está llena no hay personal suficiente para contestar teléfonos.
                     </p>
                 </div>
 
-                <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition sm:col-span-2 md:col-span-1">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 rounded-2xl flex items-center justify-center text-red-600 font-bold text-lg sm:text-xl mb-4">
+                <div class="bg-slate-950/80 p-5 sm:p-6 rounded-3xl border border-slate-800 shadow-lg card-hover-effect sm:col-span-2 md:col-span-1">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-500/10 border border-red-500/20 rounded-2xl flex items-center justify-center text-red-400 font-bold text-lg sm:text-xl mb-4">
                         <i class="fa-solid fa-face-frown"></i>
                     </div>
-                    <h3 class="font-extrabold text-slate-900 text-sm sm:text-base mb-2">Cada mesero que se equivoca...</h3>
-                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    <h3 class="font-extrabold text-white text-sm sm:text-base mb-2">Cada mesero que se equivoca...</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
                         Es una mala reseña imborrable en Google Maps. Las notas escritas a mano se pierden, generan platos mal preparados y reclamos costosos.
                     </p>
                 </div>
             </div>
 
             <!-- Breakdown Box -->
-            <div class="bg-slate-900 text-slate-100 p-6 sm:p-10 lg:p-12 rounded-3xl shadow-xl relative overflow-hidden">
+            <div class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100 p-6 sm:p-10 lg:p-12 rounded-3xl border border-red-500/20 shadow-2xl relative overflow-hidden">
                 <div class="max-w-3xl">
                     <h3 class="text-lg sm:text-2xl lg:text-3xl font-black text-white mb-4 leading-snug">
                         Y mientras intentas organizar pedidos por WhatsApp, notas escritas o llamadas telefónicas... <span class="text-red-400">tu restaurante depende del caos.</span>
@@ -380,7 +314,7 @@
                         Más errores. Más reclamos. Más tiempo perdido. Más clientes que no vuelven.
                     </p>
 
-                    <div class="p-4 bg-slate-800/80 rounded-2xl border border-slate-700 text-xs sm:text-sm text-slate-300 space-y-2">
+                    <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 text-xs sm:text-sm text-slate-300 space-y-2">
                         <p class="font-bold text-amber-400">
                             💡 La mayoría cree que necesita contratar una empresa de software o gastar miles de euros desarrollando una app propia.
                         </p>
@@ -393,7 +327,8 @@
         </div>
     </section>
 
-    <section class="py-14 sm:py-20 bg-slate-950 text-slate-100 border-b border-slate-800">
+    <!-- SECTION 2: PARA QUIEN ES (Panel Alt Tone: Deep Midnight Black) -->
+    <section class="py-14 sm:py-20 bg-slate-950 text-slate-100 border-b border-slate-800/80 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
                 <span class="text-emerald-400 font-extrabold text-xs uppercase tracking-widest block mb-2">Adaptabilidad Total</span>
@@ -403,7 +338,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <!-- Target Item 1 -->
-                <div class="bg-slate-900 p-5 sm:p-6 rounded-3xl border border-slate-800 hover:border-emerald-500/50 transition group">
+                <div class="bg-slate-900/90 p-5 sm:p-6 rounded-3xl border border-slate-800 card-hover-effect group">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 text-xl sm:text-2xl mb-3 sm:mb-4 group-hover:scale-110 transition">
                         <i class="fa-solid fa-utensils"></i>
                     </div>
@@ -412,7 +347,7 @@
                 </div>
 
                 <!-- Target Item 2 -->
-                <div class="bg-slate-900 p-5 sm:p-6 rounded-3xl border border-slate-800 hover:border-emerald-500/50 transition group">
+                <div class="bg-slate-900/90 p-5 sm:p-6 rounded-3xl border border-slate-800 card-hover-effect group">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 text-xl sm:text-2xl mb-3 sm:mb-4 group-hover:scale-110 transition">
                         <i class="fa-solid fa-mug-hot"></i>
                     </div>
@@ -421,7 +356,7 @@
                 </div>
 
                 <!-- Target Item 3 -->
-                <div class="bg-slate-900 p-5 sm:p-6 rounded-3xl border border-slate-800 hover:border-emerald-500/50 transition group">
+                <div class="bg-slate-900/90 p-5 sm:p-6 rounded-3xl border border-slate-800 card-hover-effect group">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 text-xl sm:text-2xl mb-3 sm:mb-4 group-hover:scale-110 transition">
                         <i class="fa-solid fa-burger"></i>
                     </div>
@@ -430,7 +365,7 @@
                 </div>
 
                 <!-- Target Item 4 -->
-                <div class="bg-slate-900 p-5 sm:p-6 rounded-3xl border border-slate-800 hover:border-emerald-500/50 transition group">
+                <div class="bg-slate-900/90 p-5 sm:p-6 rounded-3xl border border-slate-800 card-hover-effect group">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 text-xl sm:text-2xl mb-3 sm:mb-4 group-hover:scale-110 transition">
                         <i class="fa-solid fa-pizza-slice"></i>
                     </div>
@@ -439,7 +374,7 @@
                 </div>
 
                 <!-- Target Item 5 -->
-                <div class="bg-slate-900 p-5 sm:p-6 rounded-3xl border border-slate-800 hover:border-emerald-500/50 transition group">
+                <div class="bg-slate-900/90 p-5 sm:p-6 rounded-3xl border border-slate-800 card-hover-effect group">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 text-xl sm:text-2xl mb-3 sm:mb-4 group-hover:scale-110 transition">
                         <i class="fa-solid fa-van-shuttle"></i>
                     </div>
@@ -448,7 +383,7 @@
                 </div>
 
                 <!-- Target Item 6 -->
-                <div class="bg-slate-900 p-5 sm:p-6 rounded-3xl border border-slate-800 hover:border-emerald-500/50 transition group">
+                <div class="bg-slate-900/90 p-5 sm:p-6 rounded-3xl border border-slate-800 card-hover-effect group">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 text-xl sm:text-2xl mb-3 sm:mb-4 group-hover:scale-110 transition">
                         <i class="fa-solid fa-store"></i>
                     </div>
@@ -459,7 +394,8 @@
         </div>
     </section>
 
-    <section class="py-14 sm:py-20 bg-slate-900 text-slate-100">
+    <!-- SECTION 3: CARACTERISTICAS (Panel Alt Tone: Dark Indigo Slate) -->
+    <section class="py-14 sm:py-20 bg-slate-900 text-slate-100 border-b border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
                 <span class="text-emerald-400 font-extrabold text-xs uppercase tracking-widest block mb-2">¿Qué desbloquearás?</span>
@@ -469,7 +405,7 @@
             <!-- 3 Main Pillars -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
                 <!-- Pillar 1 -->
-                <div class="bg-slate-950 p-6 sm:p-8 rounded-3xl border border-slate-800 relative overflow-hidden">
+                <div class="bg-slate-950/90 p-6 sm:p-8 rounded-3xl border border-slate-800 relative overflow-hidden card-hover-effect">
                     <div class="text-emerald-400 text-2xl sm:text-3xl mb-3 sm:mb-4">
                         <i class="fa-solid fa-qrcode"></i>
                     </div>
@@ -480,7 +416,7 @@
                 </div>
 
                 <!-- Pillar 2 -->
-                <div class="bg-slate-950 p-6 sm:p-8 rounded-3xl border border-slate-800 relative overflow-hidden">
+                <div class="bg-slate-950/90 p-6 sm:p-8 rounded-3xl border border-slate-800 relative overflow-hidden card-hover-effect">
                     <div class="text-emerald-400 text-2xl sm:text-3xl mb-3 sm:mb-4">
                         <i class="fa-solid fa-bell font-black"></i>
                     </div>
@@ -491,7 +427,7 @@
                 </div>
 
                 <!-- Pillar 3 -->
-                <div class="bg-slate-950 p-6 sm:p-8 rounded-3xl border border-slate-800 relative overflow-hidden">
+                <div class="bg-slate-950/90 p-6 sm:p-8 rounded-3xl border border-slate-800 relative overflow-hidden card-hover-effect">
                     <div class="text-emerald-400 text-2xl sm:text-3xl mb-3 sm:mb-4">
                         <i class="fa-solid fa-sliders"></i>
                     </div>
@@ -503,7 +439,7 @@
             </div>
 
             <!-- What you are really buying box -->
-            <div class="bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-950 p-6 sm:p-10 lg:p-12 rounded-3xl border border-emerald-500/30 shadow-2xl">
+            <div class="bg-gradient-to-br from-emerald-950/80 via-slate-950 to-slate-900 p-6 sm:p-10 lg:p-12 rounded-3xl border border-emerald-500/30 shadow-2xl">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
                     <div class="lg:col-span-7 space-y-3 sm:space-y-4">
                         <span class="text-amber-400 text-xs font-black uppercase tracking-wider block">Transformación Operativa</span>
@@ -512,19 +448,19 @@
                             No compras simplemente un menú en PDF. Compras un sistema que trabaja de forma autónoma mientras tú atiendes a tus clientes.
                         </p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 pt-2 text-xs font-extrabold text-emerald-400">
-                            <div class="flex items-center space-x-2 bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+                            <div class="flex items-center space-x-2 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
                                 <i class="fa-solid fa-gauge-high flex-shrink-0"></i>
                                 <span>Compras Velocidad</span>
                             </div>
-                            <div class="flex items-center space-x-2 bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+                            <div class="flex items-center space-x-2 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
                                 <i class="fa-solid fa-sitemap flex-shrink-0"></i>
                                 <span>Compras Organización</span>
                             </div>
-                            <div class="flex items-center space-x-2 bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+                            <div class="flex items-center space-x-2 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
                                 <i class="fa-solid fa-robot flex-shrink-0"></i>
                                 <span>Compras Automatización</span>
                             </div>
-                            <div class="flex items-center space-x-2 bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+                            <div class="flex items-center space-x-2 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
                                 <i class="fa-solid fa-shield-halved flex-shrink-0"></i>
                                 <span>Compras Control Absoluto</span>
                             </div>
@@ -563,7 +499,8 @@
         </div>
     </section>
 
-    <section class="py-14 sm:py-20 bg-slate-950 text-slate-100 border-b border-slate-800">
+    <!-- SECTION 4: EQUIPAMIENTO COMPLETO (Panel Alt Tone: Deep Midnight Black) -->
+    <section class="py-14 sm:py-20 bg-slate-950 text-slate-100 border-b border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
                 <span class="text-emerald-400 font-extrabold text-xs uppercase tracking-widest block mb-2">Equipamiento Completo</span>
@@ -573,51 +510,51 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 <!-- Checklist Items -->
-                <div class="bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                <div class="bg-slate-900/80 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3 card-hover-effect">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold text-slate-200">Plataforma SaaS Multiempresa lista</span>
                 </div>
-                <div class="bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                <div class="bg-slate-900/80 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3 card-hover-effect">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold text-slate-200">Panel independiente por restaurante</span>
                 </div>
-                <div class="bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                <div class="bg-slate-900/80 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3 card-hover-effect">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold text-slate-200">Menú digital 100% responsive</span>
                 </div>
-                <div class="bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                <div class="bg-slate-900/80 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3 card-hover-effect">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold text-slate-200">Código QR automático instantáneo</span>
                 </div>
-                <div class="bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                <div class="bg-slate-900/80 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3 card-hover-effect">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold text-slate-200">Gestión completa de catálogo e ingredientes</span>
                 </div>
-                <div class="bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                <div class="bg-slate-900/80 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3 card-hover-effect">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold text-slate-200">Activar y pausar stock en segundos</span>
                 </div>
-                <div class="bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                <div class="bg-slate-900/80 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3 card-hover-effect">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold text-slate-200">Administración de pedidos en vivo</span>
                 </div>
-                <div class="bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                <div class="bg-slate-900/80 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3 card-hover-effect">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold text-slate-200">Estados automáticos de despacho</span>
                 </div>
-                <div class="bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                <div class="bg-slate-900/80 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3 card-hover-effect">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold text-slate-200">Gestión de pagos y comprobantes</span>
                 </div>
-                <div class="bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                <div class="bg-slate-900/80 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3 card-hover-effect">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold text-slate-200">Delivery con cálculo automático de envío</span>
                 </div>
-                <div class="bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                <div class="bg-slate-900/80 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3 card-hover-effect">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold text-slate-200">CRM de clientes e historial</span>
                 </div>
-                <div class="bg-slate-900 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                <div class="bg-slate-900/80 p-3.5 sm:p-4 rounded-2xl border border-slate-800 flex items-center space-x-3 card-hover-effect">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold text-slate-200">Seguimiento de pedido para cliente</span>
                 </div>
@@ -625,6 +562,7 @@
         </div>
     </section>
 
+    <!-- SECTION 5: HAZ CUENTAS (Panel Alt Tone: Deep Indigo Slate) -->
     <section class="py-14 sm:py-20 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 text-slate-100">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
@@ -633,7 +571,7 @@
             </div>
 
             <!-- Expense Breakdown Table -->
-            <div class="bg-slate-950 p-5 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl mb-10 sm:mb-12">
+            <div class="bg-slate-950/90 p-5 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl mb-10 sm:mb-12">
                 <div class="space-y-2.5 sm:space-y-3 text-xs sm:text-sm">
                     <div class="flex justify-between items-center py-2 border-b border-slate-800">
                         <span class="text-slate-300 pr-2">💣 Panel administrativo:</span>
@@ -672,10 +610,11 @@
                 <p class="text-[11px] text-slate-500 text-center sm:text-right mt-1">Y seguirías esperando meses para recibir el proyecto sin garantías.</p>
             </div>
 
-            <!-- Price Reveal Card -->
-            <div class="bg-gradient-to-r from-emerald-500 to-teal-400 p-1 rounded-3xl shadow-2xl">
+            <!-- Price Reveal Card with Animated Dynamic RGB Button -->
+            <!-- STREAMING_CHUNK: Applying dynamic RGB button (Green -> Blue -> Red)... -->
+            <div class="bg-slate-900 p-1 rounded-3xl shadow-2xl border border-emerald-500/30">
                 <div class="bg-slate-950 p-6 sm:p-10 lg:p-12 rounded-[22px] text-center space-y-5 sm:space-y-6">
-                    <span class="bg-emerald-500/20 text-emerald-400 text-[11px] sm:text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block">
+                    <span class="bg-emerald-500/20 text-emerald-400 text-[11px] sm:text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block border border-emerald-500/30">
                         Acceso Inmediato Hoy
                     </span>
 
@@ -684,7 +623,7 @@
                     </h3>
 
                     <div class="py-1 sm:py-2">
-                        <span class="text-4xl sm:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200 font-mono">
+                        <span class="text-4xl sm:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 font-mono">
                             €27
                         </span>
                         <span class="text-slate-400 font-bold text-base sm:text-lg"> / mes</span>
@@ -694,7 +633,7 @@
                         Incluye 1 Semana de Prueba GRATIS. Sin permanencia obligatoria. Puedes cancelar cuando lo desees.
                     </p>
 
-                    <a href="#contacto" class="inline-flex items-center justify-center space-x-2 w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm sm:text-base px-8 sm:px-10 py-4 sm:py-5 rounded-xl shadow-xl transition transform active:scale-95">
+                    <a href="#contacto" class="inline-flex items-center justify-center space-x-2 w-full sm:w-auto btn-dynamic-rgb font-black text-sm sm:text-base px-8 sm:px-10 py-4 sm:py-5 rounded-xl transition transform active:scale-95 shadow-2xl">
                         <span>👉 Sí, quiero automatizar mi restaurante ahora</span>
                     </a>
                 </div>
@@ -702,7 +641,8 @@
         </div>
     </section>
 
-    <section class="py-14 sm:py-20 bg-slate-900 text-slate-100 border-b border-slate-800">
+    <!-- SECTION 6: TESTIMONIALS (Panel Alt Tone: Deep Midnight Black) -->
+    <section class="py-14 sm:py-20 bg-slate-950 text-slate-100 border-b border-slate-800/80">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
                 <span class="text-emerald-400 font-extrabold text-xs uppercase tracking-widest block mb-2">Historias de Éxito</span>
@@ -711,7 +651,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Testimonial 1 -->
-                <div class="bg-slate-950 p-5 sm:p-6 rounded-3xl border border-slate-800 flex flex-col justify-between">
+                <div class="bg-slate-900/90 p-5 sm:p-6 rounded-3xl border border-slate-800 flex flex-col justify-between card-hover-effect">
                     <div class="space-y-3">
                         <div class="text-amber-400 text-xs flex space-x-1">
                             <i class="fa-solid fa-star"></i>
@@ -736,7 +676,7 @@
                 </div>
 
                 <!-- Testimonial 2 -->
-                <div class="bg-slate-950 p-5 sm:p-6 rounded-3xl border border-slate-800 flex flex-col justify-between">
+                <div class="bg-slate-900/90 p-5 sm:p-6 rounded-3xl border border-slate-800 flex flex-col justify-between card-hover-effect">
                     <div class="space-y-3">
                         <div class="text-amber-400 text-xs flex space-x-1">
                             <i class="fa-solid fa-star"></i>
@@ -761,7 +701,7 @@
                 </div>
 
                 <!-- Testimonial 3 -->
-                <div class="bg-slate-950 p-5 sm:p-6 rounded-3xl border border-slate-800 flex flex-col justify-between">
+                <div class="bg-slate-900/90 p-5 sm:p-6 rounded-3xl border border-slate-800 flex flex-col justify-between card-hover-effect">
                     <div class="space-y-3">
                         <div class="text-amber-400 text-xs flex space-x-1">
                             <i class="fa-solid fa-star"></i>
@@ -788,7 +728,8 @@
         </div>
     </section>
 
-    <section class="py-14 sm:py-20 bg-slate-950 text-slate-100">
+    <!-- SECTION 7: FAQ (Panel Alt Tone: Dark Indigo Slate) -->
+    <section class="py-14 sm:py-20 bg-slate-900 text-slate-100">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 sm:mb-16">
                 <span class="text-emerald-400 font-extrabold text-xs uppercase tracking-widest block mb-2">Resolviendo tus Dudas</span>
@@ -797,7 +738,7 @@
 
             <div class="space-y-3 sm:space-y-4">
                 <!-- FAQ 1 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                <div class="bg-slate-950/80 border border-slate-800 rounded-2xl overflow-hidden card-hover-effect">
                     <button onclick="toggleFaq(1)" class="w-full p-4 sm:p-5 text-left font-bold text-xs sm:text-base text-white flex justify-between items-center focus:outline-none">
                         <span>¿Necesito conocimientos técnicos?</span>
                         <i id="faqIcon1" class="fa-solid fa-chevron-down text-emerald-400 transition-transform ml-2"></i>
@@ -808,7 +749,7 @@
                 </div>
 
                 <!-- FAQ 2 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                <div class="bg-slate-950/80 border border-slate-800 rounded-2xl overflow-hidden card-hover-effect">
                     <button onclick="toggleFaq(2)" class="w-full p-4 sm:p-5 text-left font-bold text-xs sm:text-base text-white flex justify-between items-center focus:outline-none">
                         <span>¿Puedo administrar varios restaurantes?</span>
                         <i id="faqIcon2" class="fa-solid fa-chevron-down text-emerald-400 transition-transform ml-2"></i>
@@ -819,7 +760,7 @@
                 </div>
 
                 <!-- FAQ 3 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                <div class="bg-slate-950/80 border border-slate-800 rounded-2xl overflow-hidden card-hover-effect">
                     <button onclick="toggleFaq(3)" class="w-full p-4 sm:p-5 text-left font-bold text-xs sm:text-base text-white flex justify-between items-center focus:outline-none">
                         <span>¿Los pedidos llegan en tiempo real?</span>
                         <i id="faqIcon3" class="fa-solid fa-chevron-down text-emerald-400 transition-transform ml-2"></i>
@@ -830,7 +771,7 @@
                 </div>
 
                 <!-- FAQ 4 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                <div class="bg-slate-950/80 border border-slate-800 rounded-2xl overflow-hidden card-hover-effect">
                     <button onclick="toggleFaq(4)" class="w-full p-4 sm:p-5 text-left font-bold text-xs sm:text-base text-white flex justify-between items-center focus:outline-none">
                         <span>¿Funciona para delivery y consumo en mesa?</span>
                         <i id="faqIcon4" class="fa-solid fa-chevron-down text-emerald-400 transition-transform ml-2"></i>
@@ -841,7 +782,7 @@
                 </div>
 
                 <!-- FAQ 5 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                <div class="bg-slate-950/80 border border-slate-800 rounded-2xl overflow-hidden card-hover-effect">
                     <button onclick="toggleFaq(5)" class="w-full p-4 sm:p-5 text-left font-bold text-xs sm:text-base text-white flex justify-between items-center focus:outline-none">
                         <span>¿Puedo cambiar el menú cuando quiera?</span>
                         <i id="faqIcon5" class="fa-solid fa-chevron-down text-emerald-400 transition-transform ml-2"></i>
@@ -852,7 +793,7 @@
                 </div>
 
                 <!-- FAQ 6 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                <div class="bg-slate-950/80 border border-slate-800 rounded-2xl overflow-hidden card-hover-effect">
                     <button onclick="toggleFaq(6)" class="w-full p-4 sm:p-5 text-left font-bold text-xs sm:text-base text-white flex justify-between items-center focus:outline-none">
                         <span>¿Necesito instalar aplicaciones en los celulares?</span>
                         <i id="faqIcon6" class="fa-solid fa-chevron-down text-emerald-400 transition-transform ml-2"></i>
@@ -865,7 +806,8 @@
         </div>
     </section>
 
-    <section id="contacto" class="py-14 sm:py-20 bg-slate-900 text-slate-100 border-t border-slate-800 relative">
+    <!-- SECTION 8: CONTACTO (Panel Alt Tone: Deep Midnight Black) -->
+    <section id="contacto" class="py-14 sm:py-20 bg-slate-950 text-slate-100 border-t border-slate-800/80 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
                 <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-extrabold text-xs uppercase px-3 py-1 rounded-full tracking-wider inline-block">
@@ -880,17 +822,12 @@
             </div>
 
             <div class="max-w-2xl mx-auto">
-                <!--
-                    Google Sheets Native Hidden Iframe Target Trick:
-                    Using target="hidden_iframe" forces the browser to execute a true native HTTP POST form submission.
-                    This bypasses cross-origin CORS limitations completely on mobile & desktop browsers!
-                -->
                 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted){onFormSubmittedSuccess();}"></iframe>
 
-                <div class="bg-slate-800 p-5 sm:p-8 rounded-3xl border border-slate-700 shadow-xl">
+                <div class="bg-slate-900/90 p-5 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl">
                     <form 
                         id="contactForm" 
-                        action="https://script.google.com/macros/s/AKfycbzYmR-cnS76zs8JNA7xY4NwQxi-eUQxdiGOPL8oiOgLSbTadmLS69yoxTUVL5rE7a3X/exec"
+                        action="https://script.google.com/macros/s/AKfycbwyxztA8T9WAIzPRJnsR_tV00kTJbDCA8Ai6Gz7Y3lUo0nnRIqIEJ2UC-hjtxgjY_x4/exec"
                         method="POST"
                         target="hidden_iframe"
                         onsubmit="return handleFormSubmit(event)"
@@ -902,32 +839,31 @@
 
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-300 mb-1">Nombre Completo</label>
-                            <!-- Note: Dual naming via JS params to ensure GAS captures 'Nombre' or 'nombre' -->
-                            <input type="text" name="Nombre" id="inputNombre" required placeholder="Ej. Carlos Mendoza" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 text-base sm:text-sm focus:outline-none focus:border-emerald-500 transition">
+                            <input type="text" name="Nombre" id="inputNombre" required placeholder="Ej. Carlos Mendoza" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 text-base sm:text-sm focus:outline-none focus:border-emerald-500 transition">
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-300 mb-1">Correo Electrónico</label>
-                                <input type="email" name="Correo" id="inputCorreo" required placeholder="carlos@mi-restaurante.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 text-base sm:text-sm focus:outline-none focus:border-emerald-500 transition">
+                                <input type="email" name="Correo" id="inputCorreo" required placeholder="carlos@mi-restaurante.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 text-base sm:text-sm focus:outline-none focus:border-emerald-500 transition">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-300 mb-1">Teléfono / WhatsApp</label>
-                                <input type="tel" name="Teléfono" id="inputTelefono" required placeholder="+34 612 345 678" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 text-base sm:text-sm focus:outline-none focus:border-emerald-500 transition">
+                                <input type="tel" name="Teléfono" id="inputTelefono" required placeholder="+34 612 345 678" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 text-base sm:text-sm focus:outline-none focus:border-emerald-500 transition">
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-300 mb-1">Nombre de tu Restaurante o Negocio</label>
-                            <input type="text" name="Nombre del Negocio" id="inputNegocio" required placeholder="Ej. Pizzería Bella Italia" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 text-base sm:text-sm focus:outline-none focus:border-emerald-500 transition">
+                            <input type="text" name="Nombre del Negocio" id="inputNegocio" required placeholder="Ej. Pizzería Bella Italia" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 text-base sm:text-sm focus:outline-none focus:border-emerald-500 transition">
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-300 mb-1">Mensaje o Consulta</label>
-                            <textarea name="Mensaje" id="inputMensaje" rows="3" placeholder="Quiero solicitar mi semana de prueba gratuita..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 text-base sm:text-sm focus:outline-none focus:border-emerald-500 transition"></textarea>
+                            <textarea name="Mensaje" id="inputMensaje" rows="3" placeholder="Quiero solicitar mi semana de prueba gratuita..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 text-base sm:text-sm focus:outline-none focus:border-emerald-500 transition"></textarea>
                         </div>
 
-                        <button type="submit" id="submitBtn" class="w-full bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-black py-4 rounded-xl text-sm sm:text-base transition shadow-lg flex items-center justify-center space-x-2">
+                        <button type="submit" id="submitBtn" class="w-full btn-dynamic-rgb font-black py-4 rounded-xl text-sm sm:text-base transition shadow-lg flex items-center justify-center space-x-2">
                             <span>Enviar Consulta y Activar Prueba Gratis 🚀</span>
                         </button>
                     </form>
@@ -1020,97 +956,7 @@
             }
         }
 
-        // --- 3. INTERACTIVE ORDER SIMULATOR STATE ---
-        let simCart = [];
-
-        function addSimItem(name, price) {
-            simCart.push({ name, price });
-            renderSimCart();
-        }
-
-        function renderSimCart() {
-            const simList = document.getElementById('simList');
-            const simTotal = document.getElementById('simTotal');
-            
-            if (simCart.length === 0) {
-                simList.innerHTML = 'Ningún producto seleccionado. Haz clic arriba para seleccionar.';
-                simTotal.innerText = '€0.00';
-                return;
-            }
-
-            let total = 0;
-            let html = '<ul class="space-y-1">';
-            simCart.forEach((item) => {
-                total += item.price;
-                html += `<li class="flex justify-between items-center text-[11px]">
-                    <span class="truncate pr-2">• ${item.name}</span>
-                    <span class="font-bold text-slate-200 font-mono">€${item.price.toFixed(2)}</span>
-                </li>`;
-            });
-            html += '</ul>';
-
-            simList.innerHTML = html;
-            simTotal.innerText = `€${total.toFixed(2)}`;
-        }
-
-        function sendSimOrder() {
-            if (simCart.length === 0) {
-                alert('Selecciona al menos un producto para enviar la prueba.');
-                return;
-            }
-
-            const btn = document.getElementById('btnSendSim');
-            btn.disabled = true;
-            btn.innerText = 'Enviando Pedido...';
-
-            playAudioBeep();
-
-            setTimeout(() => {
-                const kitchenBox = document.getElementById('simKitchenBox');
-                let itemsText = simCart.map(i => i.name).join(', ');
-                let totalText = document.getElementById('simTotal').innerText;
-
-                kitchenBox.innerHTML = `
-                    <div class="bg-emerald-950 border border-emerald-500 p-3.5 rounded-xl text-left w-full animate-fade-in">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="bg-emerald-500 text-slate-950 text-[9px] font-black px-2 py-0.5 rounded uppercase">¡NUEVO PEDIDO RECIBIDO!</span>
-                            <span class="text-[10px] text-emerald-400 font-mono">${new Date().toLocaleTimeString()}</span>
-                        </div>
-                        <h5 class="font-bold text-white text-xs mb-1">Mesa 4 • Cliente Móvil</h5>
-                        <p class="text-[11px] text-slate-300 mb-2 leading-tight">${itemsText}</p>
-                        <div class="text-xs font-black text-emerald-400 border-t border-emerald-800 pt-2 flex justify-between">
-                            <span>TOTAL A COBRAR:</span>
-                            <span class="font-mono">${totalText}</span>
-                        </div>
-                    </div>
-                `;
-
-                btn.disabled = false;
-                btn.innerText = 'Enviar Otro Pedido de Prueba';
-                simCart = [];
-                renderSimCart();
-            }, 800);
-        }
-
-        // Web Audio API beep sound simulator
-        function playAudioBeep() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.3);
-            } catch(e) {
-                console.log('Audio Context not allowed or initialized');
-            }
-        }
-
-        // --- 4. FORM HANDLING WITH GUARANTEED GOOGLE SHEETS SUBMISSION ---
+        // --- 3. FORM HANDLING WITH GUARANTEED GOOGLE SHEETS SUBMISSION ---
         function handleFormSubmit(event) {
             const submitBtn = document.getElementById('submitBtn');
             const errorMsg = document.getElementById('formErrorMsg');
@@ -1146,7 +992,7 @@
 
         // Fetch backup method to cover all environments
         async function sendFetchBackup() {
-            const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzYmR-cnS76zs8JNA7xY4NwQxi-eUQxdiGOPL8oiOgLSbTadmLS69yoxTUVL5rE7a3X/exec";
+            const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwyxztA8T9WAIzPRJnsR_tV00kTJbDCA8Ai6Gz7Y3lUo0nnRIqIEJ2UC-hjtxgjY_x4/exec";
 
             const nombre = document.getElementById('inputNombre').value;
             const correo = document.getElementById('inputCorreo').value;
